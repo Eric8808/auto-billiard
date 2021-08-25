@@ -3,6 +3,10 @@
 Created on Thu Apr  1 16:00:03 2021
 
 @author: fuhow
+
+1. 讀取白球、球、洞 pixel 值，並將其自影像座標轉為世界座標(機械手臂基座座標)
+2. 計算機械手臂 C軸 選轉角度
+3. 將機械手臂擊球位置寫入 'C:/RobotStateMachine/SM_ON_OFF_File.txt'
 """
 
 import numpy as np
@@ -47,6 +51,7 @@ def coordinate_transformation(num_ball, isConvex):
         flag = f.readline()
         flag = int(flag.strip())
         
+    ''' 擊球軌跡視覺化 '''    
     # 畫出pixel點在照片上
     # 畫點
     cv.circle(img,(white_x, white_y),10,(0,0,255),-1) # 劃出白球的點
@@ -69,17 +74,19 @@ def coordinate_transformation(num_ball, isConvex):
     cv.waitKey(0)
     cv.destroyAllWindows()
     
+    ''' 影像座標轉為世界座標(機械手臂基座座標)'''
     # 計算 世界座標 x, y
     arm_translation = pix2mm.pix2mm(white_x, white_y)
     
+    ''' 計算機械手臂C軸要轉幾度'''
     # 計算氣壓缸要轉幾度 
     C_gripper = calculate_angle.calculate_C(white_x, white_y, hitten_x, hitten_y, hole_x, hole_y)  
     if num_ball == 1 and isConvex:
         print('偏')
         C_gripper += 3
     print("C_gripper", C_gripper)
-    # 寫入檔案
-##    txtname = 'config/hit_ball.txt'
+    
+    ''' 寫入檔案 '''
     txtname = 'C:/RobotStateMachine/HIWIN ROBOT NC CODE.txt'
     with open(txtname, 'w') as f:
         f.write('')

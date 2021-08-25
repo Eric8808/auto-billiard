@@ -3,6 +3,11 @@
 Created on Sat May  1 19:40:31 2021
 
 @author: asus
+
+1. 讀取白球、洞口、普通球的 pixel 座標值
+2. 對每個求計算進洞路徑
+3. 選取最佳路徑(考慮撞擊角度、普通球離洞口距離、白球與普通球距離)，並寫入 'config/result.txt'
+
 """
 import numpy as np
 

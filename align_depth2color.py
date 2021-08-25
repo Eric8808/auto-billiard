@@ -4,6 +4,9 @@
 #####################################################
 ##              Align Depth to Color               ##
 #####################################################
+'''
+Aling 深度影像至RGB影像
+'''
 
 # First import the library
 import pyrealsense2 as rs

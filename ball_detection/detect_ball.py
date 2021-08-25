@@ -3,6 +3,8 @@
 Created on Wed Dec 30 16:41:50 2020
 
 @author: fuhow
+以 Faster RCNN 所訓練出來的模型進行 Object Detection
+註: 較不穩定
 """
 """### Imports"""
 import numpy as np

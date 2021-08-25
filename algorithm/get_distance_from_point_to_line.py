@@ -3,6 +3,9 @@
 Created on Sat May  1 21:52:22 2021
 
 @author: asus
+
+計算點到值線的距離
+
 """
 
 import numpy as np

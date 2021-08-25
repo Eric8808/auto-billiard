@@ -3,6 +3,8 @@
 Created on Thu Apr  1 18:35:41 2021
 
 @author: fuhow
+
+計算機械手臂 C軸 要選轉多少
 """
 
 import numpy as np

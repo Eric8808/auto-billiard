@@ -1,3 +1,6 @@
+'''
+undistort 影像，以校正影像崎變
+'''
 import numpy as np
 import cv2 as cv
 

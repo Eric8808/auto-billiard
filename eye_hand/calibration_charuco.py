@@ -3,6 +3,8 @@
 Created on Sun Mar 21 21:55:41 2021
 
 @author: fuhow
+
+用 fname 資料夾中的 charaurco 照片來校正相機"內部參數矩陣"
 """
 import cv2 as cv
 import numpy as np

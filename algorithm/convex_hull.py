@@ -3,6 +3,10 @@
 Created on Thu May  6 15:14:32 2021
 
 @author: asus
+
+若出現沒有解的情況則會使用 convex_hull 功能
+1. 找出檯面上普通球的 convex_hull
+2. 找出 convex_hull 之重心位置，作為白球撞擊目標
 """
 
 import cv2 as cv

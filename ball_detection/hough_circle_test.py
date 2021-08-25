@@ -3,6 +3,9 @@
 Created on Mon May 17 21:44:56 2021
 
 @author: asus
+1. 以綠色遮罩與原始照片做差集，只保留球的部分
+2. 用 Hough circle 找出所有球的圓心
+3. 計算每個球的 hsv值，hsv值最大的為白球，其餘則為普通的球
 """
 import numpy as np
 import cv2 as cv

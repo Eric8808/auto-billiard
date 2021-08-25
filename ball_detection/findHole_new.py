@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-
+'''
+找出撞球檯的洞口
+1. 以綠色遮罩保留綠色範桌面範圍
+2. opening 降躁
+3. 用 Hough circle 找出洞口 pixel 座標
+'''
 
 import numpy as np
 import cv2 as cv

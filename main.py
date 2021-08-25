@@ -3,6 +3,9 @@
 Created on Thu May  6 17:20:49 2021
 
 @author: asus
+
+主程式 --> 輸入 c 重複執行程式，輸入其他字元則停止程式
+
 """
 
 import align_depth2color
@@ -79,7 +82,7 @@ while True:
         print('find holes successfully !')
         
         ''' ball detection '''
-        # detect_ball.detect_ball(detection_graph)
+        # detect_ball.detect_ball(detection_graph) # apply AI object dectection
         hough_circle_test.findBall()
         print('ball coordinates detected !')
 

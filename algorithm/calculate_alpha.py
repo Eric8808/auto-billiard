@@ -3,6 +3,9 @@
 Created on Sat May  1 20:05:32 2021
 
 @author: asus
+
+計算撞擊角度
+註: 直線碰撞 alpha=0, 若 alpha=90則無法撞擊成功
 """
 import numpy as np
 
