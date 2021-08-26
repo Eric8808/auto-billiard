@@ -16,8 +16,10 @@
 
 ---
 
-* ### 手眼校正
+* ### 手眼校正(Hand-Eye Calibration)
 1. 開啟機械手臂教導器程式，連線後按下 SMON
 2. 執行 camera_eye_hand.py
 3. 手臂會自動移動至各個姿態點並拍照
 4. 所有姿態點皆拍完照後，會進行手眼校正計算出轉換矩陣 (.txt)
+
+![](https://i.imgur.com/q0f0KA6.jpg)
