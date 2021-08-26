@@ -23,25 +23,29 @@ test_undistort.undistort()
 
 > :bulb: Note: 校正崎變後的照片，黑邊為校正後的結果
 
+
 **3. 找出六個球洞的 pixel 座標 (config/hole.txt)**
 ```
 findHole_new.findHole()
 ```
 ![](https://i.imgur.com/8DHfp1q.png)
 
-4. 找出白球與其他球的 pixel 座標 (config/white_pixel.txt, config/ball_pixel.txt)
+
+**4. 找出白球與其他球的 pixel 座標 (config/white_pixel.txt, config/ball_pixel.txt)**
 ```
 hough_circle_test.findBall()
 ```
 ![](https://i.imgur.com/NgupYDi.jpg)
 
-5. 利用球與球洞的座標進行撞球演算法生成結果 (config/result.txt)
+
+**5. 利用球與球洞的座標進行撞球演算法生成結果 (config/result.txt)**
 ```
 num_ball, isConvex = hit_ball_strategy.hit_ball_strategy()
 ```
 ![](https://i.imgur.com/CBxhUng.jpg)
 
-6. 生成之結果進行座標轉換，生成機械手臂的 NC code
+
+**6. 生成之結果進行座標轉換，生成機械手臂的 NC code**
 ```
 coordinate_transformation.coordinate_transformation(num_ball, isConvex)
 ```
