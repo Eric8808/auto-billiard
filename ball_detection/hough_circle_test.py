@@ -37,7 +37,7 @@ def findBall():
         with open(txtname_ball, 'w') as f:
             f.write('')
             
-        ''' 找RGB最大(白球) '''
+        ''' 找出白球 (RGB 和最大者) '''
         ball_distance = 40 # 離洞口多近要排除
         remove = False
         remove_list = []
@@ -45,6 +45,8 @@ def findBall():
         for index, i in enumerate(circles[0,:]):
             remove = False
             for j in range(6):
+
+                """ 排除球桌外的圓形和在球洞裡的球 """
                 if np.sqrt((i[0] - hole[j][0])**2+(i[1] - hole[j][1])**2) < ball_distance:
                     remove = True
                     remove_list.append(index)
@@ -78,7 +80,7 @@ def findBall():
             print(sum(cimg[i[1]][i[0]]))
             
         
-        ''' 寫檔 '''
+        ''' 寫檔 (白球與其他球分開儲存) '''
         for index, i in enumerate(circles[0,:]):
             if index in remove_list:
                 continue
@@ -136,7 +138,7 @@ def findBall():
             hole_y_max = hole[i][1]
     boundary = np.asarray([[hole_x_min, hole_y_min], [hole_x_max, hole_y_max]])
     
-    """# Find table using green filter"""
+    """ 利用找洞時生成的綠色遮罩去除球桌，只保留撞球，降低霍夫找圓難度 """
     img = cv.imread('color.png')
     img_resize = cv.resize(img,(1280,720))
     cv.imshow("pic", img_resize)
@@ -149,50 +151,6 @@ def findBall():
 ##    newcameramtx, roi = cv.getOptimalNewCameraMatrix(inner_matrix, dist, (w,h), 1, (w,h), True)
 ##    img = cv.undistort(img, inner_matrix, dist, None, newcameramtx)
     
-##    img_resize = cv.resize(img,(1280,720))
-##    cv.imshow("pic", img_resize)
-##    cv.waitKey(0)
-##    cv.destroyAllWindows()
-    
-    ''' crop '''
-    crop_size = 0
-    crop = img.copy()
-##    crop = crop[hole_y_min+crop_size:hole_y_max-crop_size, hole_x_min+crop_size:hole_x_max-crop_size]
-    # crop_resize = cv.resize(crop,(1280,720))
-    # cv.imshow("pic", crop_resize)
-    # cv.waitKey(0)
-    # cv.destroyAllWindows()
-    
-    # hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-    hsv = cv.cvtColor(crop, cv.COLOR_BGR2HSV)
-    
-    base_hsv = []
-    hsv_txt = 'config/hsv.txt'
-    if not Path(hsv_txt).exists():
-      center = hsv[360][640]
-      with open(hsv_txt, 'w') as f:
-        for i in range(len(center)):
-          base_hsv.append(center[i])
-          f.write(f'{base_hsv[i]}\n')
-    else:
-      with open(hsv_txt, 'r') as f:
-        lines = f.readlines()
-        for i in range(3):
-          base_hsv.append(int(lines[i].strip('\n')))
-          
-    print(base_hsv)
-    lower_green = np.array([base_hsv[0]-25, base_hsv[1]-80, base_hsv[2]-100]) #50,70,0
-    higher_green = np.array([base_hsv[0]+25, base_hsv[1]+80, base_hsv[2]+100]) #200,255,255
-    mask = cv.inRange(hsv, lower_green, higher_green)
-    # cv2_imshow(mask)
-    result = cv.bitwise_and(crop, crop, mask=mask)
-    result = crop - result
-    # print(result)
-    # img_resize = cv.resize(result,(1280,720))
-    # cv.imshow('green filter', img_resize)
-    # cv.waitKey(0)
-    # cv.destroyAllWindows()
-
     mask = cv.imread('mask.png')
     final = cv.bitwise_and(img, mask)
     img_resize = cv.resize(final,(1280,720))

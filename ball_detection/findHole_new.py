@@ -42,6 +42,7 @@ def findHole():
     cv.waitKey(0)
     cv.destroyAllWindows()
 
+  """ 如果已經找過洞則直接 return """
   txtname = 'config/hole.txt'
   if Path(txtname).exists():
     return
@@ -57,6 +58,8 @@ def findHole():
   cv.destroyAllWindows()
   hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
   base_hsv = []
+
+  """ 讀取照片中央的 pixel 顏色作為遮罩基準值 """
   hsv_txt = 'config/hsv.txt'
   if not Path(hsv_txt).exists():
     center = hsv[360][640]
@@ -69,8 +72,9 @@ def findHole():
       lines = f.readlines()
       for i in range(3):
         base_hsv.append(int(lines[i].strip('\n')))
-        
   print(base_hsv)
+
+  """ 套上綠色遮罩，留取球桌部分 """
   lower_green = np.array([base_hsv[0]-25, base_hsv[1]-80, base_hsv[2]-75]) #50,70,0
   higher_green = np.array([base_hsv[0]+25, base_hsv[1]+80, base_hsv[2]+75]) #200,255,255
   mask = cv.inRange(hsv, lower_green, higher_green)
@@ -83,17 +87,17 @@ def findHole():
   cv.destroyAllWindows()
 
 
-  # """# Detect table edge"""
-  # im = cv.imread('0_Color.png')
+  """ Detect table edge """
   imgray = cv.cvtColor(result, cv.COLOR_BGR2GRAY)
   ret, thresh = cv.threshold(imgray, 0, 100, 0)
-  # cv2_imshow(thresh)
   contours, hierarchy = cv.findContours(thresh, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)[-2:]
   con = cv.drawContours(result.copy(), contours, -1, (255,255,255), -1)
   img_resize = cv.resize(con,(1280,720))
   cv.imshow('result', img_resize)
   cv.waitKey(0)
   cv.destroyAllWindows()
+
+  """ opening 降噪 """
   kernel = np.ones((5,5),np.uint8)
   opening = cv.morphologyEx(con.copy(), cv.MORPH_OPEN, kernel)
   cv.imwrite('mask.png',opening)
@@ -103,12 +107,6 @@ def findHole():
   cv.imshow('result', img_resize)
   cv.waitKey(0)
   cv.destroyAllWindows()
-  # final = cv.bitwise_and(img, opening)
-  # # cv.drawContours(result, contours, -1, 255, 3)
-  # img_resize = cv.resize(final,(1280,720))
-  # cv.imshow('final', img_resize)
-  # cv.waitKey(0)
-  # cv.destroyAllWindows()
 
   """# Find 6 holes"""
   hough(opening, 200, 30, 5, 60, 70)
