@@ -14,13 +14,16 @@
 
 假設要撞擊 "12號球入袋" ，因為白球至12號球的軌跡上有綠球擋住，在此狀況下撞擊12號球的解法會被排除。
 
-![](https://i.imgur.com/FCQmtsI.png)
+![](https://i.imgur.com/cI5yDG0.png)
+
 
 
 ### :bulb:狀況二: 被撞擊球至洞口軌跡上有障礙物
 
 假設要撞擊 "12號球入袋" ，因為12號球至洞口的軌跡上有綠球擋住，在此狀況下撞擊12號球的解法會被排除。
-![](https://i.imgur.com/dxkbF5X.png)
+
+![](https://i.imgur.com/gBvDu5B.png)
+
 
 
 
