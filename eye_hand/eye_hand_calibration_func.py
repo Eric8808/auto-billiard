@@ -5,7 +5,7 @@ Created on Wed Apr 28 13:39:09 2021
 @author: fuhow
 """
 
-''' pose estimation '''
+
 import numpy as np
 import cv2 as cv
 import generate_T
@@ -13,26 +13,19 @@ import generate_T
 def eye_hand_calibration_func(img_num):
     count = []    
     
-    #mtx = np.loadtxt('config/20210331_best/self_inner_matrix_charuco_1280_30張.txt')
-    #dist = np.loadtxt('config/20210331_best/self_distortion_charuco_1280_30張.txt')
+    # 讀取內部參數矩陣和畸變參數
     mtx = np.loadtxt('config/L515/self_inner_matrix_charuco_1920_30張.txt')
     dist = np.loadtxt('config/L515/self_distortion_charuco_1920_30張.txt')
-##    mtx = np.loadtxt('config/L515/inMat1920.txt')
-##    dist = np.loadtxt('config/L515/dist1920.txt')
     
     params = cv.aruco.DetectorParameters_create()
     dictionary = cv.aruco.getPredefinedDictionary(cv.aruco.DICT_6X6_250)
-    #chboard = cv.aruco_CharucoBoard.create(5, 7, 0.04, 0.02, dictionary)
     chboard = cv.aruco_CharucoBoard.create(5, 7, 0.029, 0.0145, dictionary)
     
     R_target2cam = np.array([])
     t_target2cam = np.array([])
     
-    
+    ''' 先對每一張照片進行 pose estimation '''
     for i in range(img_num):
-        # if i in ng_id:
-        #     continue
-        
         a = i
         fname = f'eye_hand_charuco_pic/20210711\{a}.png'
         img = cv.imread(fname)
@@ -44,9 +37,7 @@ def eye_hand_calibration_func(img_num):
         
         corners, ids, rejectedImgPoints = cv.aruco.detectMarkers(gray, dictionary, parameters=params)
         if len(ids) > 0:
-            #result = cv.aruco.drawDetectedMarkers(img.copy(), corners, ids)
             result = cv.aruco.drawDetectedMarkers(img.copy(), corners, ids)
-            # charucoCorners, charucoIds
             retval, charucoCorners, charucoIds = cv.aruco.interpolateCornersCharuco(corners, ids, gray, chboard)
         
             if len(charucoCorners) > 0:
@@ -79,8 +70,6 @@ def eye_hand_calibration_func(img_num):
     # reshape
     t_target2cam = t_target2cam.reshape((len(count),3,1))
     R_target2cam = R_target2cam.reshape((len(count),3,3))
-    # print('t_target2cam: \n', t_target2cam)  
-    # print('R_target2cam: \n', R_target2cam) 
     cv.destroyAllWindows()
     
     

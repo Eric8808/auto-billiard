@@ -3,7 +3,7 @@
 Created on Tue Mar  2 17:31:51 2021
 
 @author: fuhow
-利用教導器上的x, y, z, a, b, c 來計算座標轉換
+利用教導器上手臂的 A, B, C 來計算旋轉矩陣
 
 """
 import numpy as np
@@ -23,4 +23,4 @@ def generate_R(A, B, C):
     #print(R)
     return R
 
-print(generate_R(180, 0, 180))
+# print(generate_R(180, 0, 180))

@@ -11,9 +11,11 @@ import numpy as np
 
 params = cv.aruco.DetectorParameters_create()
 dictionary = cv.aruco.getPredefinedDictionary(cv.aruco.DICT_6X6_250)
-#chboard = cv.aruco_CharucoBoard.create(5, 7, 0.04, 0.02, dictionary)
 chboard = cv.aruco_CharucoBoard.create(5, 7, 0.029, 0.0145, dictionary)
+
+# 照片張數
 img_num = 34
+
 all_corners = []
 all_ids = []
 
@@ -35,13 +37,11 @@ for i in range(img_num):
             all_corners.append(charucoCorners)
             all_ids.append(charucoIds)
             print(i)
-# In[]    
-# inner_matrix = np.loadtxt('config/inMat_1280.txt')
-# dist = np.loadtxt('config/CameraDistortion.txt')     
+    
 ret, cameraMatrix, distCoeffs, rvecs, tvecs = cv.aruco.calibrateCameraCharuco(all_corners, all_ids, chboard, gray.shape[::-1], None, None)
 print(cameraMatrix)
 print(distCoeffs)
-# In[]
+
 np.savetxt("config/L515/self_inner_matrix_charuco_1920_30張.txt", cameraMatrix)
 np.savetxt("config/L515/self_distortion_charuco_1920_30張.txt", distCoeffs)
     

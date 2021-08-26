@@ -82,8 +82,6 @@ try:
         if isOn == '0':
             # 0就拍照
             cv2.imwrite(f'./eye_hand_charuco_pic/{date}/{count}.png', color_image)
-            #cv2.imwrite(f'./innermatrix_calibration/1280_720/{count}.png', color_image)
-            #cv2.imwrite(f'{count}.png', images)
             cv2.imshow(f'{count}', images)
             cv2.waitKey(200)
             cv2.destroyAllWindows()
@@ -91,7 +89,7 @@ try:
             count = count + 1
             print(count)
             if count < points.shape[0]: 
-                 # 更新姿態
+                 # 更新 NC code 為下一個姿態點
                  p = points[count]
                  X = p[0]
                  Y = p[1]
@@ -105,7 +103,7 @@ try:
                      f.write(f'A {A}\tB {B}\tC {C}\t \n')
                      f.write('SLEEP\t200\n')
                      
-                 # 更新0 or 1
+                 # 更新為1，手臂移動
                  with open(SM_ON_OFF_File, 'w') as f:
                      f.write('1')
                         
@@ -114,12 +112,12 @@ try:
         
 
 finally:
+    # 計算手眼校正矩陣
     eye_hand_calibration_func.eye_hand_calibration_func(count)
+    
     # Stop streaming
     pipeline.stop()
     
-
-#def write_NC_code()
 
 
     
