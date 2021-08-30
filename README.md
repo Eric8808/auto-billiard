@@ -57,4 +57,7 @@ coordinate_transformation.coordinate_transformation(num_ball, isConvex)
 ![](https://i.imgur.com/7O9CLiL.png)
 
 ## :mag_right:實作影片
-之後放網址
+
+若有想看更多完整的步驟與程式流程可以點擊下方網址:
+
+:point_right:  https://youtu.be/1msCYlrSwBo
